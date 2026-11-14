@@ -1,4 +1,4 @@
-# Pesos, caches y modelos; no publicar
+# Pesos, caches y modelos:
 *.gguf
 *.ggml
 *.safetensors
@@ -14,7 +14,7 @@
 *.pickle
 *.pkl
 
-# Instaladores, compilaciones, ruedas y archivos de recuperación
+# Instaladores, compilaciones, ruedas y archivos de recuperación:
 *.exe
 *.msi
 *.dll
@@ -27,7 +27,7 @@
 *.partial
 *.download
 
-# Datos de pruebas y archivos personales
+# Datos de pruebas y archivos:
 *.wav
 *.mp3
 *.flac
@@ -44,7 +44,7 @@
 *.sqlite3-wal
 *.db
 
-# Directorios del kit local; solo documentación y ejemplos se versionan
+# Directorios del kit local; solo documentación y ejemplos:
 **/00_INSTALADORES/
 **/01_MODELOS/
 **/02_APLICACIONES/
@@ -71,7 +71,7 @@
 *.stdout.log
 *.stderr.log
 
-# Config local efectiva: publicar solo .example.yaml revisado
+# Config local efectiva: 
 config/*model-paths.yaml
 !config/*model-paths.example.yaml
 
