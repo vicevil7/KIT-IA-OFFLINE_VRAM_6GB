@@ -36,5 +36,5 @@ Superada la prueba de integración **sin motores**, en el equipo de referencia c
 | Ejecutar música/voz/imagen con código público adaptado | **No realizado** |
 | Instalar motores y modelos desde cero | **No realizado** |
 | Prueba en otro PC | **No realizada** |
-| 32 GB RAM / 6 GB VRAM | **NO PROBADO NI AUDITADO; no se afirma compatibilidad** |
+| 32 GB RAM / 6 GB VRAM | **NO PROBADO NI AUDITADO, no afirmando compatibilidad** |
 | Seguridad integral, auditoría de dependencias y licencias | **No realizada** |
