@@ -8,9 +8,8 @@ Este repositorio contiene documentación, scripts propios adaptados y un workflo
 
 ## Evidencia disponible
 
-- 11 archivos originales recogidos del equipo de referencia, comprobados por SHA-256.
 - Nueve scripts PowerShell públicos: sintaxis revisada con PowerShell 7, sin errores.
-- Preparación local simulada en Windows 11: 11 configuraciones, incluido YAML con ruta adaptable, sin sobrescritura de archivos existentes en la prueba.
+- Preparación local simulada en Windows 11 con los 11 scripts en origen, sin sobrescritura de archivos existentes en la prueba.
 - Carga de seis funciones en sesión sin perfil y ayuda con 18 ejemplos.
 - Generaciones originales de referencia realizadas con **Windows 11 + 64 GB RAM + RTX 3060 Laptop de 6 GB VRAM**.
 
