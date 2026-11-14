@@ -72,7 +72,7 @@ Estos resultados corresponden a una prueba concreta y no constituyen una garant�
 
 ### ¿Puede funcionar con 32 GB de RAM y una GPU de 6 GB?
 
-Es una configuración **plausible para determinados módulos**, ejecutándolos de uno en uno, pero todavía **no se ha probado este kit completo con 32 GB**. Los requerimientos de RAM dependen también del modelo LLM, tamaño de contexto, offloading y aplicaciones abiertas. Con 6 GB de VRAM el margen de la generación de imágenes observada es estrecho. [Guía de compatibilidad](docs/COMPATIBILIDAD_32GB_6GB.md).
+Es una configuración **plausible para determinados módulos**, ejecutándolos de uno en uno, pero todavía **no se ha probado este kit completo con 32 GB**. Los requerimientos de RAM dependen también del modelo LLM, tamaño de contexto, offloading y aplicaciones abiertas y con 6 GB de VRAM el margen de la generación de imágenes observada es estrecho. [Guía de compatibilidad](docs/COMPATIBILIDAD_32GB_6GB.md).
 
 ## Instalación y primeros pasos
 
@@ -113,6 +113,7 @@ En el equipo de referencia se verificó el arranque y apagado automático de Com
 
 ## Estructura del repositorio 
 
+```powershell
 │
 ├── README.md
 ├── LICENSE
@@ -150,8 +151,9 @@ En el equipo de referencia se verificó el arranque y apagado automático de Com
 │
 └── tests/
     └── validar_fuentes.py
+```
 
-Los archivos originales fueron examinados y adaptados en una copia pública. **La prueba realizada en Windows valida preparación, carga y ayuda, no la generación real ni la instalación de dependencias**. Véase [validación en Windows](docs/VALIDACION_WINDOWS_2026-11-14.md). El recolector sigue siendo una herramienta opcional para obtener una copia privada, no un sistema de publicación.
+Los archivos originales fueron examinados y adaptados en una copia pública, véase [validación en Windows](docs/VALIDACION_WINDOWS_2026-11-14.md). El recolector sigue siendo una herramienta opcional para obtener una copia privada, no un sistema de publicación.
 
 ## Documentación técnica
 
@@ -178,30 +180,19 @@ Este kit integra herramientas desarrolladas y mantenidas por sus respectivos aut
 |Software|Fuente oficial
 |---|---|
 Ollama|ollama.com
-
 ComfyUI|GitHub — ComfyUI
-
 ComfyUI-GGUF|GitHub — ComfyUI-GGUF
-
 Z-Image Turbo GGUF|Hugging Face
-
 ACE-Step 1.5 |GitHub — ACE-Step
-
 Handy|GitHub — Handy
-
 Piper|Hugging Face — Piper Voices
-
 Kokoro ONNX|GitHub — Kokoro ONNX
-
-Los programas, modelos, voces, pesos, librerías e instaladores de terceros no se redistribuyen en este repositorio, conservando cada componente su propia licencia y condiciones de uso y distribución.
-
-## Fuentes del software (terceros)
 
 - [Ollama](https://ollama.com/) · [ComfyUI](https://github.com/Comfy-Org/ComfyUI) · [ComfyUI-GGUF](https://github.com/city96/ComfyUI-GGUF)
 - [Z-Image Turbo GGUF](https://huggingface.co/unsloth/Z-Image-Turbo-GGUF) · [ACE-Step 1.5](https://github.com/ace-step/ACE-Step-1.5)
 - [Handy](https://github.com/cjpais/Handy) · [Piper voces](https://huggingface.co/rhasspy/piper-voices) · [Kokoro ONNX](https://github.com/thewh1teagle/kokoro-onnx)
 
-Cada programa y modelo conserva su propia licencia. **No se redistribuyen los instaladores, librerías, modelos, voces ni pesos** dentro de este repositorio. En especial, revisar los avisos de atribución de las voces antes de redistribuirlas. Consultar enlaces y condiciones actuales antes de cualquier publicación de binarios o pesos.
+Los programas, modelos, voces, pesos, librerías e instaladores de terceros no se redistribuyen en este repositorio, conservando cada componente su propia licencia y condiciones de uso y distribución. En especial, revisar los avisos de atribución de las voces antes de redistribuirlas,  asi como enlaces y condiciones actuales antes de cualquier publicación de binarios o pesos.
 
 ## Seguridad y límites
 
