@@ -1,0 +1,8 @@
+# PLANTILLA PUBLICA: no es la copia exacta del YAML de la maquina de referencia.
+# Cambia D:/KIT_IA_OFFLINE por la ruta real elegida antes de iniciar ComfyUI.
+# Las rutas son relativas a base_path y las carpetas deben existir.
+z_image_turbo:
+  base_path: D:/KIT_IA_OFFLINE/01_MODELOS/IMAGENES/Z-Image-Turbo
+  diffusion_models: diffusion_models
+  text_encoders: text_encoders
+  vae: vae

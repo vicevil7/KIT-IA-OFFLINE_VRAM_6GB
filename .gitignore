@@ -1,0 +1,88 @@
+# Pesos, caches y modelos; no publicar
+*.gguf
+*.ggml
+*.safetensors
+*.onnx
+*.pt
+*.pth
+*.ckpt
+*.bin
+*.model
+*.npy
+*.npz
+*.torchscript
+*.pickle
+*.pkl
+
+# Instaladores, compilaciones, ruedas y archivos de recuperación
+*.exe
+*.msi
+*.dll
+*.7z
+*.zip
+*.rar
+*.tar
+*.gz
+*.whl
+*.partial
+*.download
+
+# Datos de pruebas y archivos personales
+*.wav
+*.mp3
+*.flac
+*.mp4
+*.png
+*.jpg
+*.jpeg
+*.webp
+*.log
+*.etl
+*.dmp
+*.sqlite3
+*.sqlite3-shm
+*.sqlite3-wal
+*.db
+
+# Directorios del kit local; solo documentación y ejemplos se versionan
+**/00_INSTALADORES/
+**/01_MODELOS/
+**/02_APLICACIONES/
+**/05_HASHES/
+**/06_PRUEBAS/
+**/RESPALDOS/
+**/Data/
+**/checkpoints/
+**/python_embeded/
+**/venv/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+
+# Configuraciones locales y credenciales
+.env
+.env.*
+*.secrets.*
+*token*
+*credential*
+*api_key*
+*_estado.json
+*.off-*.json
+*.stdout.log
+*.stderr.log
+
+# Config local efectiva: publicar solo .example.yaml revisado
+config/*model-paths.yaml
+!config/*model-paths.example.yaml
+
+# Windows/IDE
+Thumbs.db
+Desktop.ini
+.vscode/
+.idea/
+
+# No publicar carpetas de recoleccion privada ni estado runtime
+KIT_IA_OFFLINE_CODIGO_PRIVADO_REVISION*
+KIT_IA_OFFLINE_REVISION_PRIVADA*/
+**/04_CONFIGURACIONES/ia_comfyui_estado.json*
+**/04_CONFIGURACIONES/ComfyUI-Z-Image-Turbo-model-paths.yaml

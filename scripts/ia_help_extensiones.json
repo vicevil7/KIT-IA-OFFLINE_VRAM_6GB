@@ -1,0 +1,92 @@
+[
+  {
+    "funcion": "ia_musica",
+    "ejemplo": "ia_musica on",
+    "descripcion": "Iniciar ACE-Step 1.5"
+  },
+  {
+    "funcion": "ia_musica",
+    "ejemplo": "ia_musica off",
+    "descripcion": "Detener ACE-Step"
+  },
+  {
+    "funcion": "ia_musica",
+    "ejemplo": "ia_musica status",
+    "descripcion": "Consultar estado de ACE-Step"
+  },
+  {
+    "funcion": "ia_voz",
+    "ejemplo": "ia_voz \"texto\"",
+    "descripcion": "Piper TTS - DaveFX"
+  },
+  {
+    "funcion": "ia_voz",
+    "ejemplo": "ia_voz \"texto\" -Voz sharvard",
+    "descripcion": "Piper TTS - Sharvard"
+  },
+  {
+    "funcion": "ia_kokoro",
+    "ejemplo": "ia_kokoro \"texto\"",
+    "descripcion": "Kokoro TTS - Santa"
+  },
+  {
+    "funcion": "ia_kokoro",
+    "ejemplo": "ia_kokoro \"texto\" -Voz dora",
+    "descripcion": "Kokoro TTS - Dora"
+  },
+  {
+    "funcion": "ia_kokoro",
+    "ejemplo": "ia_kokoro \"texto\" -Voz alex",
+    "descripcion": "Kokoro TTS - Alex"
+  },
+  {
+    "funcion": "ia_kokoro",
+    "ejemplo": "ia_kokoro \"texto\" -Velocidad 0.9",
+    "descripcion": "Ajustar velocidad de Kokoro"
+  },
+  {
+    "funcion": "ia_comfyui",
+    "ejemplo": "ia_comfyui on",
+    "descripcion": "Iniciar ComfyUI con Z-Image Turbo"
+  },
+  {
+    "funcion": "ia_comfyui",
+    "ejemplo": "ia_comfyui off",
+    "descripcion": "Detener ComfyUI"
+  },
+  {
+    "funcion": "ia_comfyui",
+    "ejemplo": "ia_comfyui status",
+    "descripcion": "Consultar estado de ComfyUI"
+  },
+  {
+    "funcion": "ia_imagen",
+    "ejemplo": "ia_imagen \"descripcion\"",
+    "descripcion": "Generar PNG 1024x576 en Descargas (semilla aleatoria)"
+  },
+  {
+    "funcion": "ia_imagen",
+    "ejemplo": "ia_imagen \"descripcion\" -Carpeta \"D:\\Fotos\"",
+    "descripcion": "Guardar en otra carpeta"
+  },
+  {
+    "funcion": "ia_imagen",
+    "ejemplo": "ia_imagen \"descripcion\" -Salida \"D:\\foto.png\"",
+    "descripcion": "Elegir nombre y ruta del PNG"
+  },
+  {
+    "funcion": "ia_imagen",
+    "ejemplo": "ia_imagen \"descripcion\" -Ancho 720 -Alto 720",
+    "descripcion": "Formato cuadrado; ancho y alto configurables"
+  },
+  {
+    "funcion": "ia_imagen",
+    "ejemplo": "ia_imagen \"descripcion\" -Semilla 42",
+    "descripcion": "Utilizar semilla fija para reproducibilidad"
+  },
+  {
+    "funcion": "ia_imagen",
+    "ejemplo": "ia_imagen \"descripcion\" -Semilla -1",
+    "descripcion": "Generar una semilla aleatoria"
+  }
+]
