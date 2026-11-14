@@ -80,9 +80,3 @@ Thumbs.db
 Desktop.ini
 .vscode/
 .idea/
-
-# No publicar carpetas de recoleccion privada ni estado runtime
-KIT_IA_OFFLINE_CODIGO_PRIVADO_REVISION*
-KIT_IA_OFFLINE_REVISION_PRIVADA*/
-**/04_CONFIGURACIONES/ia_comfyui_estado.json*
-**/04_CONFIGURACIONES/ComfyUI-Z-Image-Turbo-model-paths.yaml
