@@ -179,18 +179,14 @@ Este kit integra herramientas desarrolladas y mantenidas por sus respectivos aut
 
 |Software|Fuente oficial
 |---|---|
-Ollama|ollama.com
-ComfyUI|GitHub — ComfyUI
-ComfyUI-GGUF|GitHub — ComfyUI-GGUF
-Z-Image Turbo GGUF|Hugging Face
-ACE-Step 1.5 |GitHub — ACE-Step
-Handy|GitHub — Handy
-Piper|Hugging Face — Piper Voices
-Kokoro ONNX|GitHub — Kokoro ONNX
-
-- [Ollama](https://ollama.com/) · [ComfyUI](https://github.com/Comfy-Org/ComfyUI) · [ComfyUI-GGUF](https://github.com/city96/ComfyUI-GGUF)
-- [Z-Image Turbo GGUF](https://huggingface.co/unsloth/Z-Image-Turbo-GGUF) · [ACE-Step 1.5](https://github.com/ace-step/ACE-Step-1.5)
-- [Handy](https://github.com/cjpais/Handy) · [Piper voces](https://huggingface.co/rhasspy/piper-voices) · [Kokoro ONNX](https://github.com/thewh1teagle/kokoro-onnx)
+Ollama |ollama.com - [Ollama](https://ollama.com/)
+ComfyUI|GitHub — ComfyUI - [ComfyUI](https://github.com/Comfy-Org/ComfyUI)
+ComfyUI-GGUF|GitHub — ComfyUI-GGUF - [ComfyUI-GGUF](https://github.com/city96/ComfyUI-GGUF)
+Z-Image Turbo GGUF|Hugging Face - [Z-Image Turbo GGUF](https://huggingface.co/unsloth/Z-Image-Turbo-GGUF)
+ACE-Step 1.5 |GitHub — ACE-Step - [ACE-Step 1.5](https://github.com/ace-step/ACE-Step-1.5)
+Handy|GitHub — Handy - [Handy](https://github.com/cjpais/Handy)
+Piper|Hugging Face — Piper Voices - [Piper voces](https://huggingface.co/rhasspy/piper-voices)
+Kokoro ONNX|GitHub — Kokoro ONNX - [Kokoro ONNX](https://github.com/thewh1teagle/kokoro-onnx)
 
 Los programas, modelos, voces, pesos, librerías e instaladores de terceros no se redistribuyen en este repositorio, conservando cada componente su propia licencia y condiciones de uso y distribución. En especial, revisar los avisos de atribución de las voces antes de redistribuirlas,  asi como enlaces y condiciones actuales antes de cualquier publicación de binarios o pesos.
 
