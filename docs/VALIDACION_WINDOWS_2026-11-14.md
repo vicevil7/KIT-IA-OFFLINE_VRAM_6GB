@@ -1,6 +1,6 @@
-# Validación de preparación y carga en Windows 11 — 14/11/2026
+# Validación de preparación y carga en Windows 11
 
-**Estado:** superada la prueba de integración **sin motores**, en el equipo de referencia con PowerShell 7. No confundir con una instalación completa desde cero ni con un ensayo en otro equipo.
+Superada la prueba de integración **sin motores**, en el equipo de referencia con PowerShell 7. No confundir con una instalación completa desde cero ni con un ensayo en otro equipo.
 
 ## Integridad y sintaxis
 
@@ -9,7 +9,7 @@
 
 ## Prueba aislada de preparación
 
-- Extracción en una carpeta de validación nueva en nuevo directorio; no sobre la instalación original.
+- Extracción en una carpeta de validación nueva en nuevo directorio, no sobre la instalación original.
 - `tools/Preparar-Configuraciones.ps1` en **vista previa**: 11 elementos previstos, 0 archivos creados en destino.
 - Con `-Aplicar`: **10 ficheros copiados + YAML generado = 11 configuraciones**.
 - Las 10 copias se contrastaron por SHA-256 con el paquete público.
