@@ -1,11 +1,9 @@
 # Hardware de referencia y límites de compatibilidad
 
-**Fecha de las pruebas documentadas:** 14 de noviembre de 2026.
+## Configuración usada
 
-## Configuración que sí se utilizó
-
-- **Windows 11, 64 GB de RAM y NVIDIA RTX 3060 Laptop con 6 GB de VRAM, con varios programas abiertos que ya tienen un consumo previo de RAM y VRAM**
-- Pruebas reales de generación de música, voz, dictado e imágenes sobre el equipo de referencia con las instalaciones originales.
+- **Windows 11, 64 GB de RAM y NVIDIA RTX 3060 Laptop con 6 GB de VRAM, con varios programas abiertos que parten de un consumo de RAM y VRAM no medido previamente**
+- Pruebas reales de generación de música, voz, dictado e imágenes sobre el equipo de referencia con las instalaciones y scripts originales.
 - Para Z-Image Turbo Q4_K_M a **1024 × 576**, se registró un pico global aproximado de **5,42 GB de VRAM**, **24,1 s** de generación y **45,68 s** de duración total del comando en una ejecución concreta.
 - Una generación musical de 60 segundos con ACE-Step registró aproximadamente **16,35 GiB de RAM** y **4,02 GiB de VRAM**. Estas cifras corresponden a esa ejecución, no a mínimos certificados.
 - **No se ha validado ejecutar todos los motores simultáneamente.**
