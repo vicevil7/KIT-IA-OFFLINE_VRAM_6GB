@@ -1,6 +1,6 @@
 # Guía de instalación para Windows 11
 
-**Estado:** guía técnica basada en una instalación real. Los 11 archivos originales revisados con equivalentes públicos. **La sintaxis PowerShell y la preparación/carga de configuraciones adaptadas se probaron en Windows 11; no se ha probado la ejecución real de los motores con el código público ni una instalación desde cero en otro equipo**. No equivale a un instalador automatizado completo. Referencia: 14/11/2026, 64 GB RAM / NVIDIA RTX 3060 Laptop 6 GB. Un equipo distinto requiere sus propias pruebas.
+Guía técnica basada en una instalación real sobre un PC con 64 GB RAM / NVIDIA RTX 3060 Laptop 6 GB, con 11 archivos revisados con sus equivalentes públicos( 9 + YAML ). **La sintaxis PowerShell y la preparación/carga de configuraciones adaptadas se probaron en Windows 11 y no se han probado la ejecución real de los motores con el código público ni una instalación desde cero en otro equipo diferente**. No equivale a un instalador automatizado completo, por lo que en un equipo distinto requiere sus propias pruebas. No se midieron los consumos previos de VRAM y RAM en el dispositivo origen, asi que tenerlo en cuenta para las referencias de uso.
 
 ## 0. Conceptos de esta configuración
 
@@ -8,13 +8,13 @@
 - **Fase offline:** arrancar localmente los motores con pesos y dependencias ya presentes, sin conectar servicios de pago. Las pruebas documentadas se hicieron desconectando Internet; un programa podría tener otros comportamientos fuera de las rutas probadas.
 - **Separar programas y pesos:** evitar duplicaciones y facilitar restauraciones.
 - **No mezclar entornos Python:** ComfyUI incluye su Python; ACE-Step incluye su propio runtime; Piper y Kokoro se prepararon por separado.
-- **Interfaces solo locales:** `127.0.0.1` para las APIs.
+- **Interfaces usada solo en local:** `127.0.0.1` para las APIs.
 
 ## 1. Preparación del equipo
 
-1. Windows 11 actualizado; PowerShell 7; controlador NVIDIA compatible; 7-Zip. Validar `nvidia-smi`, `pwsh --version`, espacio en disco y GPU. **32 GB de RAM NO están probados ni auditados para este proyecto, ni siquiera por módulo en esa configuración.**
-2. Elegir una unidad **fiable y con capacidad suficiente**, por ejemplo `D:\KIT_IA_OFFLINE`. Discos externos pueden desconectarse: no usarlos como única ubicación de archivos irremplazables.
-3. Guardar instaladores y pesos por **revisión** y conservar un registro SHA. Comparar contra el digest publicado por el fabricante cuando esté disponible; el hash de una descarga reciente puede diferir si upstream actualiza el fichero.
+1. Windows 11 actualizado, PowerShell 7, controlador NVIDIA compatible,  7-Zip. Validar `nvidia-smi`, `pwsh --version`, espacio en disco y GPU. **32 GB de RAM NO están probados ni auditados para este proyecto, ni siquiera por módulo en esa configuración.**
+2. En origen se uso un disco SSD montado sobre un clonador SSK y conectado por USB 3.0 en perfecto estado, por lo que elegir una unidad **fiable y con capacidad suficiente** (ejemplo `D:\KIT_IA_OFFLINE`).
+3. Guardar instaladores y pesos por **revisión** y conservar un registro SHA. Comparar contra el digest publicado por el fabricante cuando esté disponible, teniendo en cuanta que el hash de una descarga reciente puede diferir si upstream actualiza el fichero.
 4. Desconectar la red solo **después** de descargar todos los artefactos y dependencias. No alterar firewall, antivirus ni configuración global de Python para superar errores de instalación sin investigar la causa.
 
 Ejemplo de estructura (ejecutar únicamente en la unidad que hayas elegido):
@@ -30,8 +30,8 @@ $KitRoot = 'D:\KIT_IA_OFFLINE'
 ## 2. Ollama / LLM
 
 - Instalar [Ollama para Windows](https://ollama.com/download) y comprobar API local `http://127.0.0.1:XXXXX`.
-- En el equipo de referencia se conservaron modelos `qwen3.5:9b-q4_K_M`, `qwen3.5:4b-q4_K_M`, `qwen2.5-coder:7b` y `embeddinggemma:300m` mediante un respaldo de 32 ficheros / 14,14 GiB. No se modificó la instalación previa de Ollama.
-- Elegir los modelos por RAM disponible y contexto real; que un fichero ocupe 6,6 GB no significa que el proceso necesite solo esa cantidad de memoria.
+- En el equipo de referencia se conservaron modelos `qwen3.5:9b-q4_K_M`, `qwen3.5:4b-q4_K_M`, `qwen2.5-coder:7b` y `embeddinggemma:300m` mediante un respaldo de 32 ficheros / 14,14 GiB, no modificándose la instalación previa de Ollama.
+- Elegir los modelos por RAM disponible y contexto real, ya que un fichero que ocupe 6,6 GB no significa que el proceso necesite solo esa cantidad de memoria.
 - La aplicación **Strata** integrada antes de esta instalación con `Qwen3.8-Flash-Next` e incluida en el comando original `ia`; **no forma parte de una instalación automatizada de este paquete**.
 
 Comprobación de API, cuando el motor esté activo:
@@ -42,26 +42,26 @@ Invoke-RestMethod 'http://127.0.0.1:XXXXX/api/tags'
 
 ## 3. ACE-Step 1.5 — música
 
-1. Descargar el portable oficial `ACE-Step-1.5.7z` desde [ACE-Step](https://github.com/ace-step/ACE-Step-1.5) según las instrucciones de instalación de esa revisión. Guardar el 7z bajo `00_INSTALADORES` y verificar el SHA de **esa** descarga.
+1. Descargar el portable oficial `ACE-Step-1.5.7z` desde [ACE-Step](https://github.com/ace-step/ACE-Step-1.5) según las instrucciones de instalación y guardar el 7z bajo `00_INSTALADORES`, verificando su SHA para esa descarga.
 2. Extraer a `02_APLICACIONES\ACE-Step-1.5`.
-3. Descargar los pesos compatibles desde [ACE-Step/Ace-Step1.5](https://huggingface.co/ACE-Step/Ace-Step1.5). La instalación de referencia fijó revisión `19671f406d603126926c1b7e2adc169acbcade22`. El checkpoint exacto elegido importa; no convertir todos los ejemplos del repositorio en descargas obligatorias.
-4. Guardar pesos en `01_MODELOS\MUSICA\ACE-Step-1.5`; configurar `checkpoints` de ACE-Step mediante una **junction NTFS solo si la ruta destino ya contiene los pesos correctos**. `New-Item -ItemType Junction` puede emplearse, pero exige revisar previamente las rutas; no enlazar encima de un directorio operativo sin respaldo.
-5. Configurar el launcher para localhost `127.0.0.1:XXXXX`, sin autoactualizaciones ni LLM auxiliar, con descarga/offload CPU si es necesario por 6 GB VRAM. **El `.env` y `.bat` exactos del equipo de referencia deben exportarse y revisarse, no reconstruirse adivinando sus variables.**
-6. Arrancar y generar una prueba breve sin Internet; medir RAM/VRAM. En el equipo de referencia una prueba de música mostró ~16,35 GiB RAM y 4,02 GiB VRAM.
+3. Descargar los pesos compatibles desde [ACE-Step/Ace-Step1.5](https://huggingface.co/ACE-Step/Ace-Step1.5). La instalación de referencia fijó revisión `19671f406d603126926c1b7e2adc169acbcade22`. El checkpoint exacto elegido importa,  por lo que no convertir todos los ejemplos del repositorio en descargas obligatorias.
+4. Guardar los pesos en `01_MODELOS\MUSICA\ACE-Step-1.5`, configurar `checkpoints` de ACE-Step mediante una **junction NTFS solo si la ruta destino ya contiene los pesos correctos** con `New-Item -ItemType Junction`, pero exige revisar previamente las rutas para no copiar encima de un directorio operativo sin respaldo.
+5. Configurar el launcher para localhost `127.0.0.1:XXXXX`, sin autoactualizaciones ni LLM auxiliar, con descarga/offload CPU si es necesario por 6 GB VRAM. 
+6. Arrancar y generar una prueba breve sin Internet; medir RAM/VRAM.
 
 La función `ia_musica on|off|status` se incluye en `scripts/ia_musica.ps1` como adaptación de la implementación del equipo de referencia. **La ejecución real mediante este script adaptado no está verificada.**
 
 ## 4. Handy — dictado local
 
-1. Descargar instalador oficial [Handy 0.10.0](https://github.com/cjpais/Handy/releases), verificar firma/código/hash de la versión elegida.
+1. Descargar instalador oficial [Handy 0.10.0](https://github.com/cjpais/Handy/releases), verificando firma/código/hash de la versión elegida.
 2. Instalar en modo portable según las funciones de la versión, separando carpeta de datos y ejecutable.
-3. Usar **modelos GGUF compatibles con Handy 0.10.0**: Parakeet TDT v3 Q8_0, VoxLingua107 LangID F16, Whisper Medium Q8_0 (según necesidad). No sustituirlos por el Parakeet ONNX legado.
-4. Desactivar comprobaciones automáticas de actualización si se necesita un funcionamiento sin Internet; revisar los demás ajustes de privacidad según uso.
+3. Usar **modelos GGUF compatibles con Handy 0.10.0**: Parakeet TDT v3 Q8_0, VoxLingua107 LangID F16, Whisper Medium Q8_0 (según necesidad) y no sustituirlos por el Parakeet ONNX legado.
+4. Desactivar comprobaciones automáticas de actualización si se necesita un funcionamiento sin Internet,  revisando los demás ajustes de privacidad según uso.
 5. Verificar una transcripción en español con conexión desactivada, incluyendo el micrófono real. En la referencia se usó Vulkan sobre RTX 3060.
 
 ## 5. Piper TTS — español
 
-1. Crear un entorno Python aislado compatible; en el equipo validado se empleó `piper-tts==1.8.0` con Python 3.14 y `onnxruntime==1.31.1`.
+1. Crear un entorno Python aislado compatible, usándose en el equipo validado `piper-tts==1.8.0` con Python 3.14 y `onnxruntime==1.31.1`.
 2. Descargar y conservar las ruedas para instalación offline, con hashes publicados cuando existan. Ejemplo de instalación con wheelhouse completo y Python **ya preparado**:
 
 ```powershell
@@ -71,16 +71,16 @@ La función `ia_musica on|off|status` se incluye en `scripts/ia_musica.ps1` como
 3. Descargar `.onnx`, `.onnx.json` y model card de [es_ES-davefx-medium](https://huggingface.co/rhasspy/piper-voices/tree/main/es/es_ES/davefx/medium) y/o [es_ES-sharvard-medium](https://huggingface.co/rhasspy/piper-voices/tree/main/es/es_ES/sharvard/medium). La referencia fijó revisión `2f358b6a560e3a913ebf509b2f3344f20b367f94`.
 4. Verificar formato WAV en 22.050 Hz, mono, PCM 16 bits tras síntesis en español. Las voces tienen **condiciones de datos de entrenamiento que pueden diferir**; conservar sus model cards y avisos de atribución.
 
-El script público adaptado está en `scripts/ia_voz.ps1`; sigue pendiente de prueba real en otro equipo.
+El script público adaptado está en `scripts/ia_voz.ps1`, no usado en otro equipo.
 
 ## 6. Kokoro ONNX — español
 
-1. Instalar Python **3.13.17** en un directorio independiente; no modificar el Python de ComfyUI o ACE-Step ni cambiar PATH global.
+1. Instalar Python **3.13.17** en un directorio independiente, no modificar el Python de ComfyUI o ACE-Step ni cambiar PATH global.
 2. Crear entorno virtual con `venv --copies` si las condiciones locales lo requieren.
-3. Preparar wheelhouse Windows x64 Python 3.13 y instalar (desde él, sin índice si ya está descargado): `kokoro-onnx==0.6.1`, `soundfile==0.14.0` más dependencias compatibles. Versiones observadas: `onnxruntime==1.32.0`, `numpy==2.5.4`, `espeakng-loader==0.2.4`.
+3. Preparar wheelhouse Windows x64 Python 3.13 e instalar desde él, sin índice si ya está descargado: `kokoro-onnx==0.6.1`, `soundfile==0.14.0` más dependencias compatibles. Versiones observadas: `onnxruntime==1.32.0`, `numpy==2.5.4`, `espeakng-loader==0.2.4`.
 4. Descargar `kokoro-v1.0.onnx` y `voices-v1.0.bin` desde [model-files-v1.1](https://github.com/thewh1teagle/kokoro-onnx/releases/tag/model-files-v1.1).
 5. Para español, usar fonemización `es` mediante eSpeak NG incluido en el loader y voces `em_santa`, `ef_dora`, `em_alex`. El predeterminado de la referencia fue Santa, ya que el resto de voces no gustaron.
-6. Verificar generación WAV PCM16 mono 24.000 Hz; no confundir errores de la codificación de salida de consola con errores del modelo.
+6. Verificar generación WAV PCM16 mono 24.000 Hz y no confundir errores de la codificación de salida de consola con errores del modelo.
 
 ## 7. ComfyUI + Z-Image Turbo Q4_K_M — imágenes
 
@@ -129,7 +129,7 @@ try {
 } finally { Pop-Location }
 ```
 
-Ese comando **deja ComfyUI abierto en primer plano** hasta detenerlo normalmente; no proporciona el gestor `ia_comfyui` con control PID validado. Cerrar la consola de forma brusca durante escrituras no es un procedimiento de recuperación. Probar primero que la interfaz y API responden localmente. Para funcionamiento offline real, comprobar que los modelos, paquetes y nodos no intentan descargarse al iniciar.
+Ese comando **deja ComfyUI abierto en primer plano** hasta detenerlo, no proporcionando el gestor `ia_comfyui` con control PID validado. Cerrar la consola de forma brusca durante escrituras no es un procedimiento de recuperación. Probar primero que la interfaz y API responden localmente. Para funcionamiento offline real, comprobar que los modelos, paquetes y nodos no intentan descargarse al iniciar.
 
 ### 7.4 Workflow original incluido
 
@@ -150,7 +150,7 @@ En el equipo original se implementaron `ia_comfyui on|off|status` y `ia_imagen "
 - Si el servidor se ha iniciado desde el mismo gestor, al finalizar genera PNG y apaga ComfyUI sin interferir con procesos ajenos; el helper utiliza una verificación de estado PID/puerto.
 - El flujo final mostró **5,42 GB de VRAM** de pico, **24,1 segundos de generación** y **45,68 segundos de comando total** en una sola ejecución de referencia.
 
-Se incluyen los scripts públicos adaptados en `scripts/`. Su **sintaxis y carga están comprobadas en Windows 11**; la **ejecución de los motores con ellos no está comprobada**. Consulta `docs/USO_SCRIPTS_PUBLICOS.md`, no habiendo sido probado en equipo nuevo desde cero (confundas esta guía con un instalador unificado).
+Se incluyen los scripts públicos adaptados en `scripts/`. Su **sintaxis y carga están comprobadas en Windows 11**; la **ejecución de los motores con ellos no está comprobada en equipo origen**. Consulta `docs/USO_SCRIPTS_PUBLICOS.md`, no habiendo sido probado en equipo nuevo desde cero (confundas esta guía con un instalador unificado).
 
 ## 8. Qué probar con Internet desconectado
 
@@ -158,7 +158,7 @@ Se incluyen los scripts públicos adaptados en `scripts/`. Su **sintaxis y carga
 2. Ollama API local y respuesta del modelo que se vaya a usar.
 3. ACE-Step, un audio de prueba, consumo RAM/VRAM y parada correcta.
 4. Handy, transcripción de una frase real en español.
-5. Piper, WAV PCM16 22.050 Hz; Kokoro, WAV PCM16 24.000 Hz.
+5. Piper, WAV PCM16 22.050 Hz y Kokoro, WAV PCM16 24.000 Hz.
 6. ComfyUI, API 8188, `UnetLoaderGGUF` y un PNG 1024×576 con hash local.
 7. Con los scripts públicos adaptados, `ia_ayuda` (18 ejemplos) y la carga en PowerShell 7 **ya están verificados**. No se ha comprobado `ia_imagen` generando y apagando ComfyUI con el script adaptado.
 8. No ejecutar todos los motores simultáneamente al intentar validar equipos con poca RAM.
@@ -167,7 +167,7 @@ Se incluyen los scripts públicos adaptados en `scripts/`. Su **sintaxis y carga
 
 - Mantener los pesos y sus hashes fuera de repositorio Git. Registrar revisiones, versiones, tamaños y proveniencia.
 - Antes de actualizar, guardar copia verificable de scripts y configuraciones; no duplicar modelos por defecto.
-- Si cambias la unidad, usar `-KitRoot` con `tools/Preparar-Configuraciones.ps1` y `tools/Cargar-Comandos.ps1`; los scripts adaptados ya utilizan `KIT_IA_OFFLINE_ROOT`. No editar la instalación original para reutilizar este repositorio.
+- Si cambias la unidad, usar `-KitRoot` con `tools/Preparar-Configuraciones.ps1` y `tools/Cargar-Comandos.ps1`. Los scripts adaptados ya utilizan `KIT_IA_OFFLINE_ROOT`, asi que no editar la instalación original para reutilizar este repositorio.
 
 
 ## 10. Condiciones para llamar «reproducible» a la publicación
