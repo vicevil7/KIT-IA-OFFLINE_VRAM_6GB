@@ -80,3 +80,6 @@ Thumbs.db
 Desktop.ini
 .vscode/
 .idea/
+
+**/04_CONFIGURACIONES/ia_comfyui_estado.json*
+**/04_CONFIGURACIONES/ComfyUI-Z-Image-Turbo-model-paths.yaml
