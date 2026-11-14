@@ -1,39 +1,117 @@
 # KIT IA Offline — laboratorio de IA local para Windows
 
-**Guía y código de integración para Windows (versión preliminar; validación de preparación/carga realizada en Windows 11, no probado en un segundo equipo)** para integrar LLM locales, generación de imágenes, música, dictado y síntesis de voz en un PC Windows, sin depender de servicios de inferencia remotos durante las pruebas offline descritas.
+Herramientas, scripts y documentación para integrar inteligencia artificial local en Windows, incluyendo modelos de lenguaje (LLM), generación de imágenes, música, transcripción de voz y síntesis de voz.
 
-> **Estado de publicación:** integra los 11 archivos originales auditados, con scripts PowerShell y Kokoro adaptados a una raíz configurable. Los nueve scripts PowerShell públicos pasaron el análisis de sintaxis en PowerShell 7 de Windows. La preparación de 11 configuraciones y la carga de seis funciones se comprobaron en una carpeta simulada de E:, sin arrancar motores. **Aún no se han ejecutado los motores con el código adaptado ni se ha probado en un segundo equipo**. No contiene motores, modelos ni instalador automático. Consulta [uso de los scripts](docs/USO_SCRIPTS_PUBLICOS.md).
+El proyecto está orientado a utilizar herramientas de IA en un entorno local, sin depender de servicios remotos de inferencia durante su funcionamiento offline.
+
+**Estado de publicación:** **Aún no se han ejecutado los motores con el código adaptado ni se ha probado en un segundo equipo**. No contiene motores, modelos ni instalador automático. Consulta [uso de los scripts](docs/USO_SCRIPTS_PUBLICOS.md).
+
+## Estado del proyecto
+
+El repositorio contiene scripts PowerShell, herramientas Python, configuraciones y documentación para integrar diferentes motores de IA en Windows.
+
+**Validaciones realizadas en Windows 11:**
+
+- Análisis de sintaxis de los 9 scripts PowerShell públicos, sin errores.
+
+- Preparación de 11 archivos de configuración en un directorio aislado.
+
+- Generación de un YAML con rutas adaptables.
+
+- Carga de 6 funciones en PowerShell sin perfil.
+
+- Comprobación de la ayuda con 18 ejemplos de comandos.
+
+- Verificación de que la preparación no modificó la instalación original.
 
 ## Qué contiene el proyecto
 
 | Función | Herramienta | Estado en equipo de referencia |
 |---|---|---|
-| Chat y programación LLM | Ollama + gestor PowerShell; integración Strata existente | Instalación previa utilizada; copia de modelos Ollama verificada |
-| Música | ACE-Step 1.5 | Generación offline validada |
-| Dictado / voz a texto | Handy 0.10.0 + modelos GGUF | Transcripción offline validada |
-| Texto a voz, español | Piper TTS 1.8.0 | DaveFX y Sharvard validados |
-| Texto a voz, español | Kokoro ONNX 0.6.1 | Santa, Dora y Alex validados |
-| Imagen | ComfyUI v0.45.0 + ComfyUI-GGUF + Z-Image Turbo Q4_K_M | Generación y apagado offline validados |
-| Acceso cómodo | Comandos `ia_*` en PowerShell | `ia help` con 18 ejemplos verificados en el equipo original; `ia_ayuda` en el público |
+| Chat y programación LLM | Ollama + gestor PowerShell con integración Strata existente | Instalación local utilizada y copia de modelos Ollama verificada |
+| Generación de Música | ACE-Step 1.5 | Generación offline validada |
+|Transcripción de voz | Handy 0.10.0 + modelos GGUF | Transcripción offline validada |
+| Síntesis de voz en español | Piper TTS 1.8.0 | Voces `DaveFX` y `Sharvard` validados |
+| Texto a voz, español | Kokoro ONNX 0.6.1 | Voces `Santa, Dora y Alex` validados |
+| Generación de imágenes | ComfyUI v0.45.0 + ComfyUI-GGUF + Z-Image Turbo Q4_K_M | Generación y apagado offline validados |
+| Gestión mendiante PowerShell | Comandos personalizados y creados `ia_*` en PowerShell | Funciones públicas cargadas y ayuda comprobada||
 
-**No incluido en esta distribución:** Kiwix u otros paquetes de contenido de consulta offline; estaban contemplados como fase futura.
+`Alcance:` este repositorio proporciona los scripts de integración y sus configuraciones. Los motores y modelos deben obtenerse e instalarse por separado.
 
 ## Hardware de referencia y compatibilidad
 
-Pruebas realizadas en **Windows 11, 64 GB RAM y NVIDIA RTX 3060 Laptop de 6 GB VRAM**, con PowerShell 7.6.9. Para Z-Image Turbo se emplearon 8 pasos, CFG 1, `--lowvram` y resolución predeterminada **1024 × 576**. Un PNG completo tardó **24,1 s** en la fase de generación y **45,68 s** para el comando total (arranque y cierre incluidos); pico observado de VRAM **5,42 GB**.
+Las pruebas funcionales se realizaron con:
+
+| Componente | Configuración|
+|---|---|
+Sistema operativo|Windows 11
+Memoria RAM |64 GB
+Tarjeta gráfica |NVIDIA RTX 3060 Laptop
+Memoria gráfica |6 GB VRAM
+PowerShell |7.6.9
+
+## Resultados de generación de imágenes
+
+En el equipo de referencia se utilizó Z-Image Turbo con:
+
+- Resolución predeterminada: 1024 × 576 píxeles.
+
+- Pasos de generación: 8.
+
+- CFG: 1.
+
+- Modo ComfyUI: --lowvram.
+
+- Tiempo de generación observado: 24,1 segundos.
+
+- Tiempo total del comando: 45,68 segundos, incluyendo arranque y cierre.
+
+- Pico observado de VRAM: 5,42 GB.
+
+Estos resultados corresponden a una prueba concreta y no constituyen una garantía de rendimiento en otros equipos.
 
 ### ¿Puede funcionar con 32 GB de RAM y una GPU de 6 GB?
 
-**[No verificado]** Es una configuración **plausible para determinados módulos**, ejecutándolos de uno en uno, pero todavía **no se ha probado este kit completo con 32 GB**. Los requerimientos de RAM dependen también del modelo LLM, tamaño de contexto, offloading y aplicaciones abiertas. Con 6 GB de VRAM el margen de la generación de imágenes observada es estrecho. [Guía de compatibilidad](docs/COMPATIBILIDAD_32GB_6GB.md).
+Es una configuración **plausible para determinados módulos**, ejecutándolos de uno en uno, pero todavía **no se ha probado este kit completo con 32 GB**. Los requerimientos de RAM dependen también del modelo LLM, tamaño de contexto, offloading y aplicaciones abiertas. Con 6 GB de VRAM el margen de la generación de imágenes observada es estrecho. [Guía de compatibilidad](docs/COMPATIBILIDAD_32GB_6GB.md).
 
-## Empezar
+## Instalación y primeros pasos
 
-1. Leer [Instalación en Windows](docs/INSTALACION_WINDOWS.md): descarga de software y modelos originales desde sus fuentes oficiales, verificación y separación de carpetas.
-2. Consultar [Compatibilidad con 32 GB/6 GB](docs/COMPATIBILIDAD_32GB_6GB.md) antes de elegir modelos y ejecutar servicios simultáneos.
-3. Revisar [Publicación en GitHub](docs/GITHUB_PUBLICACION.md): archivos a compartir, exclusiones, licencias y requisitos para un paquete reproducible.
-4. Consultar [uso de los scripts públicos](docs/USO_SCRIPTS_PUBLICOS.md) y [procedencia/cambios](docs/CODIGO_ORIGINAL_Y_CAMBIOS.md). Establecer `KIT_IA_OFFLINE_ROOT` mediante el cargador; instalar modelos y ejecutables por separado.
+Este repositorio no incluye un instalador automático completo de los motores de IA.
 
-Comandos de la instalación de referencia. En otro equipo solo deben usarse **después** de instalar dependencias y validar las variantes adaptadas:
+1. Consultar [Instalación en Windows](docs/INSTALACION_WINDOWS.md) para conocer la estructura de carpetas y las dependencias necesarias. 2. Descargar el software y modelos originales desde sus fuentes oficiales, verificación y separación de carpetas. Consultar [Compatibilidad con 32 GB/6 GB](docs/COMPATIBILIDAD_32GB_6GB.md) antes de elegir modelos y ejecutar servicios simultáneos.
+3. Consultar [uso de los scripts públicos](docs/USO_SCRIPTS_PUBLICOS.md) y [procedencia/cambios](docs/CODIGO_ORIGINAL_Y_CAMBIOS.md). 
+4. Configurar la raíz de instalación mediante KIT_IA_OFFLINE_ROOT y el cargador de comandos.
+5. Configurar la raíz de instalación mediante `KIT_IA_OFFLINE_ROOT` y el cargador de comandos, estableciendo el cargador, modelos y ejecutables por separado.
+6. Comprobar las rutas y dependencias antes de iniciar los motores.
+7. Revisar [Publicación en GitHub](docs/GITHUB_PUBLICACION.md): archivos a compartir, exclusiones, licencias y requisitos para un paquete reproducible.
+
+## Comandos de disponibles. 
+
+Comandos personalizados en equipo origen, por lo que, en otro equipo solo deben usarse **después** de instalar dependencias y validar las variantes adaptadas:
+
+**Ayuda de los comandos públicos**
+ia_ayuda
+
+# Música
+ia_musica on
+ia_musica status
+ia_musica off
+
+# Texto a voz con Piper
+ia_voz "Hola, esta es una prueba."
+
+# Texto a voz con Kokoro
+ia_kokoro "Hola, esta es una prueba." -Voz santa
+
+# ComfyUI
+ia_comfyui on
+ia_comfyui status
+ia_comfyui off
+
+# Generación de imágenes
+ia_imagen "Un castillo junto a un lago al amanecer"
+
+ia_imagen "Un bosque ilustrado" -Ancho 720 -Alto 720 -Semilla 42
 
 ```powershell
 ia_ayuda
@@ -105,5 +183,3 @@ Cada programa y modelo conserva su propia licencia. **No se redistribuyen los in
 Los scripts de integración, herramientas y documentación original de este repositorio se distribuyen bajo la **licencia MIT**, con copyright **2026 vicevil.dev**. Consulta el archivo [`LICENSE`](LICENSE). La licencia permite usar, modificar y distribuir el material sujeto a sus condiciones, incluida la conservación del aviso de copyright y licencia.
 
 **Importante:** la MIT de este repositorio solo cubre el material que el titular está autorizado a licenciar. Los programas, modelos, voces, pesos y demás componentes de terceros **no** quedan relicenciados: se rigen por sus propias licencias y condiciones de distribución, enlazadas en la sección anterior.
-
-*Documentación de estado: 14 de noviembre de 2026. Paquete preliminar de integración; no instalador completo.*
