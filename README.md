@@ -78,7 +78,8 @@ Es una configuración **plausible para determinados módulos**, ejecutándolos d
 
 Este repositorio no incluye un instalador automático completo de los motores de IA.
 
-1. Consultar [Instalación en Windows](docs/INSTALACION_WINDOWS.md) para conocer la estructura de carpetas y las dependencias necesarias. 2. Descargar el software y modelos originales desde sus fuentes oficiales, verificación y separación de carpetas. Consultar [Compatibilidad con 32 GB/6 GB](docs/COMPATIBILIDAD_32GB_6GB.md) antes de elegir modelos y ejecutar servicios simultáneos.
+1. Consultar [Instalación en Windows](docs/INSTALACION_WINDOWS.md) para conocer la estructura de carpetas y las dependencias necesarias.
+2. Descargar el software y modelos originales desde sus fuentes oficiales, verificación y separación de carpetas. Consultar [Compatibilidad con 32 GB/6 GB](docs/COMPATIBILIDAD_32GB_6GB.md) antes de elegir modelos y ejecutar servicios simultáneos.
 3. Consultar [uso de los scripts públicos](docs/USO_SCRIPTS_PUBLICOS.md) y [procedencia/cambios](docs/CODIGO_ORIGINAL_Y_CAMBIOS.md). 
 4. Configurar la raíz de instalación mediante KIT_IA_OFFLINE_ROOT y el cargador de comandos.
 5. Configurar la raíz de instalación mediante `KIT_IA_OFFLINE_ROOT` y el cargador de comandos, estableciendo el cargador, modelos y ejecutables por separado.
@@ -89,16 +90,13 @@ Este repositorio no incluye un instalador automático completo de los motores de
 
 Comandos personalizados en equipo origen, por lo que, en otro equipo solo deben usarse **después** de instalar dependencias y validar las variantes adaptadas:
 
-**Ayuda de los comandos públicos**
-ia_ayuda
-
-# Música
-ia_musica on
-ia_musica status
-ia_musica off
-
-# Texto a voz con Piper
-ia_voz "Hola, esta es una prueba."
+Temática | Comando
+|---|---|
+General |ia_ayuda - ayuda de los comandos públicos
+Música |ia_musica on
+| |ia_musica status
+| |ia_musica off
+|Texto a voz con Piper| ia_voz "Hola, esta es una prueba."
 
 # Texto a voz con Kokoro
 ia_kokoro "Hola, esta es una prueba." -Voz santa
@@ -114,8 +112,8 @@ ia_imagen "Un castillo junto a un lago al amanecer"
 ia_imagen "Un bosque ilustrado" -Ancho 720 -Alto 720 -Semilla 42
 
 ```powershell
-ia_ayuda
-# ia help e ia status dependen del gestor preexistente Strata/Ollama
+ia_help
+# 
 ia_musica on
 ia_musica status
 ia_musica off
