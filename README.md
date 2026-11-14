@@ -81,8 +81,8 @@ Este repositorio no incluye un instalador automático completo de los motores de
 1. Consultar [Instalación en Windows](docs/INSTALACION_WINDOWS.md) para conocer la estructura de carpetas y las dependencias necesarias.
 2. Descargar el software y modelos originales desde sus fuentes oficiales, verificación y separación de carpetas. Consultar [Compatibilidad con 32 GB/6 GB](docs/COMPATIBILIDAD_32GB_6GB.md) antes de elegir modelos y ejecutar servicios simultáneos.
 3. Consultar [uso de los scripts públicos](docs/USO_SCRIPTS_PUBLICOS.md) y [procedencia/cambios](docs/CODIGO_ORIGINAL_Y_CAMBIOS.md). 
-4. Configurar la raíz de instalación mediante KIT_IA_OFFLINE_ROOT y el cargador de comandos.
-5. Configurar la raíz de instalación mediante `KIT_IA_OFFLINE_ROOT` y el cargador de comandos, estableciendo el cargador, modelos y ejecutables por separado.
+4. Configurar la raíz de instalación mediante `KIT_IA_OFFLINE_ROOT` y el cargador de comandos, estableciendo el cargador, modelos y ejecutables por separado.
+5. Preparar las configuraciones con tools/Preparar-Configuraciones.ps1.
 6. Comprobar las rutas y dependencias antes de iniciar los motores.
 7. Revisar [Publicación en GitHub](docs/GITHUB_PUBLICACION.md): archivos a compartir, exclusiones, licencias y requisitos para un paquete reproducible.
 
@@ -90,75 +90,110 @@ Este repositorio no incluye un instalador automático completo de los motores de
 
 Comandos personalizados en equipo origen, por lo que, en otro equipo solo deben usarse **después** de instalar dependencias y validar las variantes adaptadas:
 
-Temática | Comando
-|---|---|
-General |ia_ayuda - ayuda de los comandos públicos
-Música |ia_musica on
-| |ia_musica status
-| |ia_musica off
-|Texto a voz con Piper| ia_voz "Hola, esta es una prueba."
-
-# Texto a voz con Kokoro
+```powershell
+# Música
+ia_musica on
+ia_musica status
+ia_musica off
+# Texto a voz - Piper
+ia_voz "Hola, esta es una prueba."
+# Texto a voz - Kokoro
 ia_kokoro "Hola, esta es una prueba." -Voz santa
-
 # ComfyUI
 ia_comfyui on
 ia_comfyui status
 ia_comfyui off
-
-# Generación de imágenes
-ia_imagen "Un castillo junto a un lago al amanecer"
-
-ia_imagen "Un bosque ilustrado" -Ancho 720 -Alto 720 -Semilla 42
-
-```powershell
-ia_help
-# 
-ia_musica on
-ia_musica status
-ia_musica off
-ia_voz "Hola, esta es una prueba."
-ia_kokoro "Hola, esta es una prueba." -Voz santa
-ia_comfyui on
-ia_comfyui status
-ia_comfyui off
+#Generación de imágenes
 ia_imagen "Un castillo junto a un lago al amanecer"
 ia_imagen "Un bosque ilustrado" -Ancho 720 -Alto 720 -Semilla 42
 ```
+**Generación de imágenes:** ia_imagen utiliza por defecto una resolución de 1024 × 576 píxeles, semilla aleatoria y guarda los resultados en la carpeta Descargas de Windows, salvo que se indiquen otros parámetros.
 
-> `ia_imagen` guarda en Descargas de Windows por defecto. En la instalación probada, iniciaba ComfyUI de forma automática si estaba apagado y lo detenía al finalizar; la configuración definitiva genera 1024×576 con semilla aleatoria, salvo que se especifiquen argumentos.
+En el equipo de referencia se verificó el arranque y apagado automático de ComfyUI durante la generación. Este comportamiento todavía no se ha validado con los scripts adaptados en este repositorio en una instalación nueva.
 
-## Estructura del repositorio actualizado
+## Estructura del repositorio 
 
-```text
-README.md
-LICENSE
-.gitignore
-config/
-  ComfyUI-Z-Image-Turbo-model-paths.example.yaml
-  ComfyUI-Z-Image-Turbo-workflow.json
-  ARCHIVOS_PENDIENTES.md
-docs/
-  INSTALACION_WINDOWS.md
-  USO_SCRIPTS_PUBLICOS.md
-  CODIGO_ORIGINAL_Y_CAMBIOS.md
-  COMPATIBILIDAD_32GB_6GB.md
-  HASHES_REFERENCIA.md
-  GITHUB_PUBLICACION.md
-  VALIDACION_WINDOWS_2026-11-14.md
-scripts/
-  ia_musica.ps1, ia_voz.ps1, ia_kokoro.ps1
-  ia_comfyui.ps1, ia_imagen.ps1, ia_help_extensiones.ps1
-  kokoro_generar.py, ia_imagen_generar.py, ia_help_extensiones.json
-tools/
-  Preparar-Configuraciones.ps1
-  Cargar-Comandos.ps1
-  Recolectar-Configuraciones.ps1
-tests/
-  validar_fuentes.py
-```
+│
+├── README.md
+├── LICENSE
+├── .gitignore
+├── SHA256SUMS.txt
+│
+├── config/
+│   ├── ARCHIVOS_PENDIENTES.md
+│   ├── ComfyUI-Z-Image-Turbo-model-paths.example.yaml
+│   └── ComfyUI-Z-Image-Turbo-workflow.json
+│
+├── docs/
+│   ├── INSTALACION_WINDOWS.md
+│   ├── USO_SCRIPTS_PUBLICOS.md
+│   ├── CODIGO_ORIGINAL_Y_CAMBIOS.md
+│   ├── COMPATIBILIDAD_32GB_6GB.md
+│   ├── GITHUB_PUBLICACION.md
+│   └── VALIDACION_WINDOWS.md
+│
+├── scripts/
+│   ├── ia_comfyui.ps1
+│   ├── ia_help_extensiones.json
+│   ├── ia_help_extensiones.ps1
+│   ├── ia_imagen.ps1
+│   ├── ia_imagen_generar.py
+│   ├── ia_kokoro.ps1
+│   ├── ia_musica.ps1
+│   ├── ia_voz.ps1
+│   └── kokoro_generar.py
+│
+├── tools/
+│   ├── Cargar-Comandos.ps1
+│   ├── Preparar-Configuraciones.ps1
+│   └── Recolectar-Configuraciones.ps1
+│
+└── tests/
+    └── validar_fuentes.py
 
 Los archivos originales fueron examinados y adaptados en una copia pública. **La prueba realizada en Windows valida preparación, carga y ayuda, no la generación real ni la instalación de dependencias**. Véase [validación en Windows](docs/VALIDACION_WINDOWS_2026-11-14.md). El recolector sigue siendo una herramienta opcional para obtener una copia privada, no un sistema de publicación.
+
+## Documentación técnica
+
+- Instalación en Windows
+
+- Uso de los scripts públicos
+
+- Adaptaciones del código
+
+- Compatibilidad de hardware
+
+- Referencias de integridad
+
+- Publicación en GitHub
+
+- Resultados de validación en Windows
+
+El archivo SHA256SUMS.txt permite comprobar la integridad de los archivos incluidos en la distribución correspondiente.
+
+## Software y proyectos de terceros
+
+Este kit integra herramientas desarrolladas y mantenidas por sus respectivos autores.
+
+|Software|Fuente oficial
+|---|---|
+Ollama|ollama.com
+
+ComfyUI|GitHub — ComfyUI
+
+ComfyUI-GGUF|GitHub — ComfyUI-GGUF
+
+Z-Image Turbo GGUF|Hugging Face
+
+ACE-Step 1.5 |GitHub — ACE-Step
+
+Handy|GitHub — Handy
+
+Piper|Hugging Face — Piper Voices
+
+Kokoro ONNX|GitHub — Kokoro ONNX
+
+Los programas, modelos, voces, pesos, librerías e instaladores de terceros no se redistribuyen en este repositorio, conservando cada componente su propia licencia y condiciones de uso y distribución.
 
 ## Fuentes del software (terceros)
 
@@ -170,14 +205,17 @@ Cada programa y modelo conserva su propia licencia. **No se redistribuyen los in
 
 ## Seguridad y límites
 
-- El funcionamiento offline fue comprobado en pruebas concretas con la conexión a Internet desconectada. `HF_HUB_OFFLINE=1` y parámetros similares son medidas de aplicación, **no un cortafuegos**.
+- El funcionamiento offline fue comprobado en pruebas concretas con la conexión a Internet desconectada.
+- Variables como `HF_HUB_OFFLINE=1` y parámetros similares son medidas de aplicación, que no sustituyen a un cortafuegos ni constituyen por sí mismas una garantía de aislamiento de red.
 - Escuchar solo en `127.0.0.1` para las interfaces locales; no exponer puertos de inferencia a Internet sin autenticación y medidas adicionales.
-- No ejecutar scripts descargados sin revisarlos. Verificar origen, firmas y SHA-256 donde existan.
-- El modelo de imagen y su workflow no se han probado fuera del equipo descrito. La configuración puede variar por controlador, GPU y paquetes instalados.
-- La documentación original contiene una incidencia de hardware USB del equipo de referencia; no forma parte de los requisitos del kit ni debe atribuirse al software de IA.
+- Los scripts deben revisarse antes de ejecutarse y sus dependencias descargarse de fuentes confiables.
+- Los resultados de rendimiento corresponden exclusivamente al hardware y a las condiciones descritas. El modelo de imagen y su workflow no se han probado fuera del equipo descrito, pudiendo variar la configuración por un controlador, GPU y paquetes instalados.
+- La instalación y el funcionamiento completo del kit público no se han verificado en un segundo equipo.
 
 ## Licencia
 
 Los scripts de integración, herramientas y documentación original de este repositorio se distribuyen bajo la **licencia MIT**, con copyright **2026 vicevil.dev**. Consulta el archivo [`LICENSE`](LICENSE). La licencia permite usar, modificar y distribuir el material sujeto a sus condiciones, incluida la conservación del aviso de copyright y licencia.
 
-**Importante:** la MIT de este repositorio solo cubre el material que el titular está autorizado a licenciar. Los programas, modelos, voces, pesos y demás componentes de terceros **no** quedan relicenciados: se rigen por sus propias licencias y condiciones de distribución, enlazadas en la sección anterior.
+Esta licencia se aplica únicamente al contenido que el titular está autorizado a licenciar. Los motores, modelos, voces, pesos y otros componentes de terceros conservan sus respectivas licencias y condiciones de distribución.
+
+Los programas, modelos, voces, pesos y demás componentes de terceros **no quedan relicenciados**, y se rigen por sus propias licencias y condiciones de distribución, enlazadas en la sección anterior.
